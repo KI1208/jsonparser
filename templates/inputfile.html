@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+{% block body %}
+  <p>{{ message }} </p>
+  <form action="{{ url_for('inputfile') }}" method=post class=add-entry enctype="multipart/form-data">
+    File:     <input type="file" name="file" size="30"/><br>
+    Description: <input type="text" name="desc" size="30" placeholder="Description"/><br>
+    <input type="submit" />
+  </form>
+
+  <ul class=entries>
+  {% for entry in entries %}
+    <li><h2>{{ entry.filename }}</h2>
+    <p><a href="{{url_for('delete',value=entry.id)}}">削除</a></p>
+	Description:   {{ entry.desc }}<br>
+	Created:    {{ entry.created }}<br>
+  {% else %}
+    <li><em>まだエントリがありません。</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
+
