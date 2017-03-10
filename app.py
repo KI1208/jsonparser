@@ -11,6 +11,9 @@ import os
 from werkzeug.utils import secure_filename
 import json
 
+# Custom
+from parse_json import parse_json
+
 # Create application instance
 app = Flask(__name__)
 
@@ -81,6 +84,17 @@ def inputfile():
     if not message:
         message = "Current time is " + current
     return render_template('inputfile.html', message=message, entries=entries)
+
+
+@app.route('/output')
+def output():
+    fname = request.args.get('value').replace(' ','_')
+    fpath = app.config['UPLOAD_FOLDER'] + fname
+    jsonfile = open(fpath,'r')
+    config = json.load(jsonfile)
+    output = parse_json(config)
+
+    return render_template('output.html', entries=output)
 
 
 @app.route('/delete', methods=['GET', 'POST'])

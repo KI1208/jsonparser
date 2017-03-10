@@ -1,0 +1,43 @@
+{% extends "layout.html" %} 
+<h1>Movies</h1>
+{% block body %}
+  <table ~~~ style="table-layout:fixed;width:100%;" border = "3">
+    <colgroup>
+      <col style="width:25%;">
+      <col style="width:25%;">
+      <col style="width:25%;">
+      <col style="width:25%;">
+    </colgroup>
+    <tr bgcolor="skyblue">
+    <td ~~~ style="word-wrap:break-word;">Title</td>
+    <td ~~~ style="word-wrap:break-word;">Rank</td>
+    <td ~~~ style="word-wrap:break-word;">Genres</td>
+    <td ~~~ style="word-wrap:break-word;">Actors</td>
+    </tr>
+  {% for entry in entries %}
+    {% for i in range(entry.rowspan) %}
+    <tr>
+      {% if i == 0 %}
+      <td ~~~ style="word-wrap:break-word;" rowspan = "{{ entry.rowspan }}">{{ entry.title }}</td>
+      <td ~~~ style="word-wrap:break-word;" rowspan = "{{ entry.rowspan }}">{{ entry.rank }}</td>
+      {% endif %}
+      
+      {% if entry.genres[i] %}
+      <td ~~~ style="word-wrap:break-word;">{{ entry.genres[i] }}</td>
+      {% else %}
+      <td ~~~ style="word-wrap:break-word;" bgcolor="black">Empty</td>
+      {% endif %}
+
+      {% if entry.actors[i] %}
+      <td ~~~ style="word-wrap:break-word;">{{ entry.actors[i] }}</td>
+      {% else %}
+      <td ~~~ style="word-wrap:break-word;" bgcolor="black">Empty</td>
+      {% endif %}      
+    </tr>
+    {% endfor %}
+  {% else %}
+    <tr><td ~~~ style="word-wrap:break-word;" columnspan="4">No entry here.</td></tr>
+  {% endfor %}
+  </table>
+{% endblock %}
+
